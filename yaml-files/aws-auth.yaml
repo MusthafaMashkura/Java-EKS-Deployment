@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::239786103795:role/NodeInstanceRole
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::239786103795:role/codebuild-Java-EKS-codebuild-service-role
+      username: codebuild-Java-EKS-codebuild-service-role
+      groups:
+      - system:masters
